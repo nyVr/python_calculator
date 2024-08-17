@@ -14,6 +14,9 @@ class Calculator:
         # make the window unresizable
         self.window.resizable(False, False)
 
+        self.display = tk.Entry(window, width=16, font=('Arial', 24), borderwidth=2, relief='solid', bg='#FFFACD')
+        self.display.grid(row=0, column=0, columnspan=4)  # Place the display at the top, spanning 4 columns.
+
         # CREATE BUTTONS
         buttons = [
             "7", "8", "9", "/",
@@ -42,11 +45,11 @@ class Calculator:
 
     def create_btn(self, value, row, col):
         if value == '=':
-            btn = tk.Button(self.window, text=value, width=5, height=2, bg="grey")
+            btn = tk.Button(self.window, text=value, width=16, height=2, borderwidth=3, bg="grey")
         elif value == 'C':
-            btn = tk.Button(self.window, text=value, width=5, height=2, bg="grey")
+            btn = tk.Button(self.window, text=value, width=16, height=2, borderwidth=3, bg="grey")
         else:
-            btn = tk.Button(self.window, text=value, width=5, height=2, bg="grey")
+            btn = tk.Button(self.window, text=value, width=16, height=2, borderwidth=3, bg="grey")
 
         btn.grid(row=row, column=col)
 
