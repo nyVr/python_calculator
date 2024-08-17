@@ -5,26 +5,50 @@ import tkinter as tk
 class Calculator:
     def __init__(self, window):
         # GUI WINDOW
-        window = tk.Tk()
-        window.title("nrn's calculator")
+        self.window = window
+        self.window.title("nrn's calculator")
+        self.window.configure(bg="#fff")
 
         # DIMENSIONS
-        window.geometry("500x500")
+        self.window.geometry("500x500")
+        # make the window unresizable
+        self.window.resizable(False, False)
 
         # CREATE BUTTONS
         buttons = [
-            "7", "8", "9", "",
-            "4", "5", "6", "",
-            "1", "2", "3", "",
-            "0", "", "", "",
+            "7", "8", "9", "/",
+            "4", "5", "6", "*",
+            "1", "2", "3", "-",
+            "0", ".", "=", "+",
             "(", ")", "C"
         ]
 
+        # create the buttons and place them in a
+        row_index = 1
+        col_index = 0
+        for button in buttons:
+            self.create_btn(button, row_index, col_index)
+            # move to next column
+            col_index += 1
+
+            # if column is greater than 4th one, reset to the first one
+            # and move to the next row
+            if col_index > 3:
+                col_index = 0
+                row_index += 1
+
         # RUN THE APPLICATION
-        window.mainloop()
+        self.window.mainloop()
 
     def create_btn(self, value, row, col):
-        pass
+        if value == '=':
+            btn = tk.Button(self.window, text=value, width=5, height=2, bg="grey")
+        elif value == 'C':
+            btn = tk.Button(self.window, text=value, width=5, height=2, bg="grey")
+        else:
+            btn = tk.Button(self.window, text=value, width=5, height=2, bg="grey")
+
+        btn.grid(row=row, column=col)
 
     def btn_pressed(self, num):
         pass
@@ -35,3 +59,7 @@ class Calculator:
     def calc_result(self):
         pass
 
+if __name__ == "__main__":
+    og_window = tk.Tk()
+    calc = Calculator(og_window)
+    og_window.mainloop()
