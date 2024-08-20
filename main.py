@@ -1,5 +1,6 @@
 import tkinter as tk
 
+
 # using a class to encapsulate the calculator
 # so oop principles can be used
 class Calculator:
@@ -8,14 +9,15 @@ class Calculator:
         self.window = window
         self.window.title("nrn's calculator")
         self.window.configure(bg="#fff")
-
-        # DIMENSIONS
         self.window.geometry("500x500")
-        # make the window unresizable
-        self.window.resizable(False, False)
+        self.window.resizable(False, False)  # make the window unresizable
 
-        self.display = tk.Entry(window, width=16, font=('Arial', 24), borderwidth=2, relief='solid', bg='#FFFACD')
-        self.display.grid(row=0, column=0, columnspan=4)  # Place the display at the top, spanning 4 columns.
+        # ENTRY FIELD
+        self.input = tk.Entry(window, width=16, borderwidth=2)
+        self.input.grid(row=0, column=0, columnspan=4)
+
+        # VALIDATE INPUT
+        self.input.bind("<KeyPress>", self.on_key_press)  # bind so when a key is pressed the on_key_press func triggered
 
         # CREATE BUTTONS
         buttons = [
@@ -43,25 +45,40 @@ class Calculator:
         # RUN THE APPLICATION
         self.window.mainloop()
 
+    @staticmethod
+    def on_key_press(event):
+        """ trigger when a key is pressed, to check if the inputted key is valid """
+        vld_chars = "0123456789+-/*.()"
+        # check if the key is invalid, if so block the key press
+        if event.char not in vld_chars:
+            return "break"
+
     def create_btn(self, value, row, col):
         if value == '=':
-            btn = tk.Button(self.window, text=value, width=16, height=2, borderwidth=3, bg="grey")
+            btn = tk.Button(self.window, text=value, width=16, height=5, borderwidth=3, bg="grey",
+                            command=self.calc_result())
         elif value == 'C':
-            btn = tk.Button(self.window, text=value, width=16, height=2, borderwidth=3, bg="grey")
+            btn = tk.Button(self.window, text=value, width=16, height=5, borderwidth=3, bg="grey",
+                            command=self.clear_calc())
         else:
-            btn = tk.Button(self.window, text=value, width=16, height=2, borderwidth=3, bg="grey")
+            btn = tk.Button(self.window, text=value, width=16, height=5, borderwidth=3, bg="grey", command=lambda:
+            self.btn_pressed(value))
 
         btn.grid(row=row, column=col)
 
     def btn_pressed(self, num):
+        """ handle when a button operator is pressed """
         pass
 
     def clear_calc(self):
-        pass
+        """ clear the input"""
+        self.input.delete(0, tk.END)
 
     def calc_result(self):
+        """ calculate the result of the inputted calculation"""
         pass
 
+# MAIN
 if __name__ == "__main__":
     og_window = tk.Tk()
     calc = Calculator(og_window)
