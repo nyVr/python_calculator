@@ -28,7 +28,7 @@ class Calculator:
             "(", ")", "C"
         ]
 
-        # create the buttons and place them in a
+        # create the buttons and place them in a grid
         row_index = 1
         col_index = 0
         for button in buttons:
@@ -69,7 +69,21 @@ class Calculator:
 
     def btn_pressed(self, num):
         """ handle when a button operator is pressed """
-        pass
+        curDis = self.input.get()
+
+        # if the = is pressed calculate the result
+        if num == "=":
+            self.calc_result()
+
+        # if clear is pressed clear the display
+        elif num == "C":
+            self.clear_calc()
+
+        # otherwise a number/operator is pressed add it to the display
+        else:
+            # clear display and redisplay new eq
+            self.input.delete(0, tk.END)
+            self.input.insert(0, curDis + num)
 
     def clear_calc(self):
         """ clear the input"""
