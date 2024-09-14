@@ -13,7 +13,7 @@ class Calculator:
         self.window.resizable(False, False)  # make the window unresizable
 
         # ENTRY FIELD
-        self.input = tk.Entry(window, width=16, borderwidth=2)
+        self.input = tk.Entry(window, width=16, font=("Arial", 24), borderwidth=2)
         self.input.grid(row=0, column=0, columnspan=4)
 
         # VALIDATE INPUT
@@ -54,6 +54,7 @@ class Calculator:
             return "break"
 
     def create_btn(self, value, row, col):
+        """ basic template to create buttons for calc """
         if value == '=':
             btn = tk.Button(self.window, text=value, width=16, height=5, borderwidth=3, bg="grey",
                             command=self.calc_result())
