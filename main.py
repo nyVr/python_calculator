@@ -57,10 +57,10 @@ class Calculator:
         """ basic template to create buttons for calc """
         if value == '=':
             btn = tk.Button(self.window, text=value, width=16, height=5, borderwidth=3, bg="grey",
-                            command=self.calc_result())
+                            command=self.calc_result)
         elif value == 'C':
             btn = tk.Button(self.window, text=value, width=16, height=5, borderwidth=3, bg="grey",
-                            command=self.clear_calc())
+                            command=self.clear_calc)
         else:
             btn = tk.Button(self.window, text=value, width=16, height=5, borderwidth=3, bg="grey", command=lambda:
             self.btn_pressed(value))
