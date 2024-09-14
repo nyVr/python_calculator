@@ -91,7 +91,19 @@ class Calculator:
 
     def calc_result(self):
         """ calculate the result of the inputted calculation"""
-        pass
+        # there might be some errors (like zero division) in the maths so try to see if calc works
+        # otherwise display error msg
+        try:
+            # using eval is not reccommended for bigger prijects bc its vulnreble
+            # but this is just a calcultor, so it doesn't matter
+            result = eval(self.input.get())
+            self.input.delete(0, tk.END)
+            self.input.insert(0, str(result))
+        # also it's not recommended to use a bare except but theres too many possible errors to go create an except for
+        # each of them
+        except:
+            self.input.delete(0, tk.END)
+            self.input.insert(0, "ERROR")
 
 # MAIN
 if __name__ == "__main__":
