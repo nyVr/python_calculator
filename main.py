@@ -12,6 +12,11 @@ class Calculator:
         self.window.geometry("500x500")
         self.window.resizable(False, False)  # make the window unresizable
 
+        # BOOLEAN
+        # created a boolean to check whether the result was displayed, so it can reset the display when
+        # a new input is in the display
+        self.input_filled = False
+
         # ENTRY FIELD
         self.input = tk.Entry(window, width=16, font=("Arial", 24), borderwidth=2)
         self.input.grid(row=0, column=0, columnspan=4)
@@ -63,12 +68,18 @@ class Calculator:
                             command=self.clear_calc)
         else:
             btn = tk.Button(self.window, text=value, width=16, height=5, borderwidth=3, bg="grey", command=lambda:
-            self.btn_pressed(value))
+                            self.btn_pressed(value))
 
         btn.grid(row=row, column=col)
 
     def btn_pressed(self, num):
         """ handle when a button operator is pressed """
+        # if there is already a result/error msg in the input clear it
+        if self.input_filled:
+            self.input.delete(0, tk.END)
+            self.input_filled = False
+
+        # get the current display so u can append whatever number/operator added to it
         curDis = self.input.get()
 
         # if the = is pressed calculate the result
@@ -88,6 +99,7 @@ class Calculator:
     def clear_calc(self):
         """ clear the input"""
         self.input.delete(0, tk.END)
+        self.input_filled = False
 
     def calc_result(self):
         """ calculate the result of the inputted calculation"""
@@ -99,11 +111,13 @@ class Calculator:
             result = eval(self.input.get())
             self.input.delete(0, tk.END)
             self.input.insert(0, str(result))
-        # also it's not recommended to use a bare except but theres too many possible errors to go create an except for
+            self.input_filled = True
+        # also it's not recommended to use a bare except but there's too many possible errors to go create an except for
         # each of them
         except:
             self.input.delete(0, tk.END)
             self.input.insert(0, "ERROR")
+            self.input_filled = True
 
 # MAIN
 if __name__ == "__main__":
